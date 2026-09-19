@@ -1,0 +1,44 @@
+    1  whoami
+    2  sudo groupadd students
+    3  cat /etc/group
+    4  sudo useradd -m -u 1234 -g students -s /bin/bash user1
+    5  id user1
+    6  ls -ld /home/user1
+    7  sudo passwd user1
+    8  sudo chage -M 90 user1
+    9  chage -l user1
+   10  sudo chage -l user1
+   11  stat /home/user1 > ~/stat.out
+   12  exit
+   13  su root
+   14  exit
+   15  sudo find / -type f -perm -4000 -ls 2>/dev/null > ~/setuid_files.out
+   16  ps -eo pid,ruid,euid,ruser,euser,comm | awk '$3 == 0 && $2 >= 1000' > ~/privileged_processes.out 
+   17  whoami
+   18  cat /etc/shadow
+   19  cp /usr/bin/cat ~/cat_suid
+   20  ls -l ~/cat_suid
+   21  sudo chown root:root ~/cat_suid
+   22  sudo chmod 4755 ~/cat_suid
+   23  ls -l ~/cat_suid
+   24  ~/cat_suid /etc/shadow
+   25  stat /home/admin/cat_suid >> ~/stat.out
+   26  getcap /home/admin/cat_suid > ~/getcap.out
+   27  touch ~/test_chown.txt
+   28  ls -l ~/test_chown.txt
+   29  chown user1 ~/test_chown.txt
+   30  cp /usr/bin/chown ~/chown_cap
+   31  ls -l ~/chown_cap
+   32  sudo setcap cap_chown=ep ~/chown_cap
+   33  getcap ~/chown_cap
+   34  ~/chown_cap user1 ~/test_chown.tx
+   35  ~/chown_cap user1 ~/test_chown.txt
+   36  ls -l ~/test_chown.txt
+   37  stat ~/chown_cap >> ~/stat.out
+   38  getcap ~/chown_cap >> ~/getcap.out
+   39  sudo visudo -f /etc/sudoers.d/user1-time
+   40  sudo chmod 440 /etc/sudoers.d/user1-tim
+   41  sudo chmod 440 /etc/sudoers.d/user1-time
+   42  su - user1
+   43  sudo cp /etc/sudoers ~/sudoers.out
+   44  history > ~/history.out
